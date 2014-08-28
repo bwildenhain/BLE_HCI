@@ -4,7 +4,10 @@ import os
 TX = serial.Serial()
 
 if os.name == 'posix':
-  TX.port = '/dev/tty.usbmodem1431'
+  if os.uname()[0] == 'Linux':
+    TX.port = '/dev/ttyACM0'
+  else:
+    TX.port = '/dev/tty.usbmodem1431'
 else:
   TX.port = 'COM5'
 TX.baudrate = 115200
